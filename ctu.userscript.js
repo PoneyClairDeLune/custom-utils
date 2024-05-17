@@ -160,6 +160,7 @@ let startObserver = (appMount) => {
               };
               if (!switchAnotherStreamerTask?.constructor) {
                 let timeLeft = 300000 + Math.floor(Math.random() * 600000);
+		document.querySelector(".tw-animated-glitch-logo").innerHTML = `<img src="https://cdn.discordapp.com/emojis/1238166216426913803.webp?size=40&quality=lossless">`
                 switchAnotherStreamerTask = setTimeout(() => {
                   location.href = `https://www.twitch.tv/directory/all/tags/pony`;
                 }, timeLeft);
