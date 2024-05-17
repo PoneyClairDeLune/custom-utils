@@ -84,7 +84,7 @@ let selectMinecraftStream = () => {
   let targets = [];
   document.querySelectorAll("a[data-a-target=preview-card-game-link]").forEach((e) => {
     if (e.innerText == "Minecraft") {
-      console.debug(`Found!`);
+      console.debug(`[Custom Twitch Utils] Found!`);
       targets.push(e.parentElement.parentElement.querySelector("a.preview-card-channel-link").href);
     }/* else {
       console.debug(`Not "${e.innerText}"...`);
@@ -98,7 +98,7 @@ let selectMinecraftStream = () => {
 let switchAnotherStreamerTask;
 
 let startObserver = (appMount) => {
-	console.debug("Observer started.");
+	console.debug("[Custom Twitch Utils] Observer started.");
   let cssStyle = document.createElement("style");
   cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime{display:none !important;}`;
   document.head.append(cssStyle);
@@ -106,7 +106,7 @@ let startObserver = (appMount) => {
     let streamerPoints = document.querySelector("button[class*=ScCoreButtonSuccess]");
     if (streamerPoints && conf.pointCollector) {
       streamerPoints.click();
-      console.debug("Points collected!");
+      console.debug("[Custom Twitch Utils] Points collected!");
     } else if (!source) {
       //console.debug("Point collector idle.");
     };
@@ -115,10 +115,10 @@ let startObserver = (appMount) => {
         let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
         if (blockedUsers.indexOf(s) > -1) {
           e1.parentElement.remove();
-          console.debug(`Target observer blocked "${c}" (${s.toString(16)}).`);
+          console.debug(`[Custom Twitch Utils] Target observer blocked "${c}" (${s.toString(16)}).`);
         } else if (!e1.hashedOnce) {
           e1.hashedOnce = true;
-          console.debug(`Skipped observer "${c}" (${s.toString(16)}).`);
+          console.debug(`[Custom Twitch Utils] Skipped observer "${c}" (${s.toString(16)}).`);
         };
       });
     })();
@@ -159,9 +159,11 @@ let startObserver = (appMount) => {
                 videoElement.muted = true;
               };
               if (!switchAnotherStreamerTask?.constructor) {
+                let timeLeft = 300000 + Math.floor(Math.random() * 600000);
                 switchAnotherStreamerTask = setTimeout(() => {
                   location.href = `https://www.twitch.tv/directory/all/tags/pony`;
-                }, 300000 + Math.floor(Math.random() * 600000));
+                }, timeLeft);
+                console.warn(`[Custom Twitch Utils] Will switch to the next stream ${timeLeft / 1000} seconds later.`);
               };
               break;
             };
@@ -185,10 +187,10 @@ let startObserver = (appMount) => {
           let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
           if (blockedUsers.indexOf(s) > -1) {
             e1.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-            console.debug(`Target streamer blocked (${s.toString(16)}).`);
+            console.debug(`[Custom Twitch Utils] Target streamer blocked (${s.toString(16)}).`);
           } else {
             //console.debug(blockedUsers);
-            console.debug(`Skipped streamer "${c}" (${s.toString(16)}).`);
+            console.debug(`[Custom Twitch Utils] Skipped streamer "${c}" (${s.toString(16)}).`);
           };
         });
 			});
@@ -203,14 +205,14 @@ let appMount = document.querySelector("div.root-scrollable.scrollable-area");
 if (appMount) {
 	startObserver(appMount);
 } else {
-	console.debug("Observer waiting...");
+	console.debug("[Custom Twitch Utils] Observer waiting...");
 	let rootObserver = new MutationObserver((records) => {
 		appMount = document.querySelector("div.root-scrollable.scrollable-area");
 		if (appMount) {
 			startObserver(appMount);
 			rootObserver.disconnect();
 		} else {
-			console.debug("Observer skipped.");
+			console.debug("[Custom Twitch Utils] Observer skipped.");
 		};
 	});
 	rootObserver.observe(document.body, {
