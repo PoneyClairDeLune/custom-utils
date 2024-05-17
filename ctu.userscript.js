@@ -76,7 +76,7 @@ let createHashedArray = (input) => {
   return hashedArray;
 };
 
-const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,littleshyfim,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
+const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
 
 let locationHash;
 
