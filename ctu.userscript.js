@@ -155,8 +155,8 @@ let startObserver = (appMount) => {
             };
             case "minecraftGet": {
               let videoElement = document.querySelector("video");
-              if (!videoElement.muted) {
-                videoElement.muted = true;
+              if (videoElement.volume > 0.05) {
+                videoElement.volume = 0.02;
               };
               if (!switchAnotherStreamerTask?.constructor) {
                 let timeLeft = 300000 + Math.floor(Math.random() * 600000);
