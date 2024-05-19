@@ -7,4 +7,4 @@ I know the code is extremely ugly, but... The only goal for it is to work.
 - [x] Fake user and unwanted user blocker.
 - [x] Automatic streamer points collector.
 - [x] Minecraft stream watching bot.
-  - [x] Reject streams requiring phone verification to chat. It is a form of unacceptable breach of privacy.
+  - [ ] Reject streams requiring phone verification to chat. It is a form of unacceptable breach of privacy.
