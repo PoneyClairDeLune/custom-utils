@@ -3,16 +3,16 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1
-// @author      -
+// @version     0.1.3
+// @author      Lumière Élevé
 // @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46
 // ==/UserScript==
 
 "use strict";
 
 const conf = {
-  "minecraftBot": true,
-  "pointCollector": true
+	"minecraftBot": true,
+	"pointCollector": true
 };
 
 // CRC32, direct rewrite of src/libbz3.c#L31-L66@github.com/kspalaiologos/bzip3
@@ -56,144 +56,154 @@ let crc32Sum = (crc, u8Buf) => {
 	};
 	for (let i = 0; i < u8Buf.length; i ++) {
 		crc = crc32Table[((crc & 255) ^ u8Buf[i]) & 255] ^ (crc >>> 8);
-    //console.debug(`Round ${i + 1} sum is: ${crc}`);
+		//console.debug(`Round ${i + 1} sum is: ${crc}`);
 	};
 	return crc;
 };
 let u8Enc = new TextEncoder();
 let crc32SumText = (text) => {
-  let t = crc32Sum(0, u8Enc.encode(text));
-  //console.debug(`Calculated sum: ${t}`);
-  return t;
+	let t = crc32Sum(0, u8Enc.encode(text));
+	//console.debug(`Calculated sum: ${t}`);
+	return t;
 };
 let createHashedArray = (input) => {
-  let hashedArray = new Int32Array(input.length);
-  input.forEach((e, i) => {
-    let s = crc32SumText(e);
-    hashedArray[i] = s;
-    console.debug(`Created entry: ${s.toString(16)}`);
-  });
-  return hashedArray;
+	let hashedArray = new Int32Array(input.length);
+	input.forEach((e, i) => {
+		let s = crc32SumText(e);
+		hashedArray[i] = s;
+		console.debug(`Created entry: ${s.toString(16)}`);
+	});
+	return hashedArray;
 };
 
-const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
+const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,littleshyfim,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
 
 let locationHash;
 
 let selectMinecraftStream = () => {
-  let targets = [];
-  document.querySelectorAll("a[data-a-target=preview-card-game-link]").forEach((e) => {
-    if (e.innerText == "Minecraft") {
-      console.debug(`[Custom Twitch Utils] Found!`);
-      targets.push(e.parentElement.parentElement.querySelector("a.preview-card-channel-link").href);
-    }/* else {
-      console.debug(`Not "${e.innerText}"...`);
-    }*/;
-  });
-  if (targets.length) {
-    return `${targets[Math.floor(Math.random() * targets.length)]}#minecraftGet`;
-  };
+	let targets = [], runCount = 0;
+	document.querySelectorAll("a[data-a-target=preview-card-game-link]").forEach((e) => {
+		if (e.innerText == "Minecraft") {
+			console.debug(`[Custom Twitch Utils] Found!`);
+			targets.push(e.parentElement.parentElement.querySelector("a.preview-card-channel-link").href);
+		}/* else {
+			console.debug(`Not "${e.innerText}"...`);
+		}*/;
+		runCount ++;
+	});
+	if (targets.length) {
+		return `${targets[Math.floor(Math.random() * targets.length)]}#minecraftGet`;
+	};
+	if (!runCount) {
+		return `wait`;
+	};
 };
 
 let switchAnotherStreamerTask;
 
 let startObserver = (appMount) => {
 	console.debug("[Custom Twitch Utils] Observer started.");
-  let cssStyle = document.createElement("style");
-  cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime{display:none !important;}`;
-  document.head.append(cssStyle);
-  let tickingTask = async (source = 0) => {
-    let streamerPoints = document.querySelector("button[class*=ScCoreButtonSuccess]");
-    if (streamerPoints && conf.pointCollector) {
-      streamerPoints.click();
-      console.debug("[Custom Twitch Utils] Points collected!");
-    } else if (!source) {
-      //console.debug("Point collector idle.");
-    };
-    (async () => {
-        document.querySelectorAll("div.chatter-list-item")?.forEach((e1) => {
-        let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
-        if (blockedUsers.indexOf(s) > -1) {
-          e1.parentElement.remove();
-          console.debug(`[Custom Twitch Utils] Target observer blocked "${c}" (${s.toString(16)}).`);
-        } else if (!e1.hashedOnce) {
-          e1.hashedOnce = true;
-          console.debug(`[Custom Twitch Utils] Skipped observer "${c}" (${s.toString(16)}).`);
-        };
-      });
-    })();
-    (async () => {
-      if (!conf.minecraftBot) {
-        return;
-      };
-      // Minecraft stream watcher
-      switch (self.location.pathname) {
-        case "/directory/all/tags/pony": {
-          let selected = selectMinecraftStream();
-          if (selected) {
-            location.href = selected;
-          } else {
-            location.href = "/directory/all/tags/minecraft";
-          };
-          break;
-        };
-        case "/directory/all/tags/minecraft": {
-          let selected = selectMinecraftStream();
-          if (selected) {
-            location.href = selected;
-          };
-          break;
-        };
-        default: {
-          if (location.hash) {
-            locationHash = location.hash.replace("#", "");
-          };
-          //console.debug(locationHash);
-          switch (locationHash) {
-            case "": {
-              break;
-            };
-            case "minecraftGet": {
-              let videoElement = document.querySelector("video");
-              if (videoElement.volume > 0.05) {
-                videoElement.volume = 0.02;
-              };
-              if (!switchAnotherStreamerTask?.constructor) {
-                let timeLeft = 300000 + Math.floor(Math.random() * 600000);
-                document.querySelector(".tw-animated-glitch-logo").innerHTML = `<img src="https://cdn.discordapp.com/emojis/1238166216426913803.webp?size=40&quality=lossless">`
-                switchAnotherStreamerTask = setTimeout(() => {
-                  location.href = `https://www.twitch.tv/directory/all/tags/pony`;
-                }, timeLeft);
-                console.warn(`[Custom Twitch Utils] Will switch to the next stream ${timeLeft / 1000} seconds later: ${new Date(Date.now() + timeLeft)}.`);
-              };
-              break;
-            };
-            default: {
-              console.debug(locationHash);
-            };
-          };
-        };
-      };
-    })();
-  };
-  let cyclicId = setInterval(tickingTask, 5000);
+	let cssStyle = document.createElement("style");
+	cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime{display:none !important;}`;
+	document.head.append(cssStyle);
+	let tickingTask = async (source = 0) => {
+		let streamerPoints = document.querySelector("button[class*=ScCoreButtonSuccess]");
+		if (streamerPoints && conf.pointCollector) {
+			streamerPoints.click();
+			console.debug("[Custom Twitch Utils] Points collected!");
+		} else if (!source) {
+			//console.debug("Point collector idle.");
+		};
+		(async () => {
+				document.querySelectorAll("div.chatter-list-item")?.forEach((e1) => {
+				let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
+				if (blockedUsers.indexOf(s) > -1) {
+					e1.parentElement.remove();
+					console.debug(`[Custom Twitch Utils] Target observer blocked "${c}" (${s.toString(16)}).`);
+				} else if (!e1.hashedOnce) {
+					e1.hashedOnce = true;
+					console.debug(`[Custom Twitch Utils] Skipped observer "${c}" (${s.toString(16)}).`);
+				};
+			});
+		})();
+		(async () => {
+			if (!conf.minecraftBot) {
+				return;
+			};
+			// Minecraft stream watcher
+			switch (self.location.pathname) {
+				case "/directory/all/tags/pony": {
+					let selected = selectMinecraftStream();
+					if (selected == "wait") {
+						console.debug(`Waiting...`);
+					} else if (selected && Math.random() < 0.8) {
+						location.href = selected;
+					} else {
+						location.href = "/directory/all/tags/minecraft";
+					};
+					break;
+				};
+				case "/directory/all/tags/minecraft": {
+					let selected = selectMinecraftStream();
+					if (selected == "wait") {
+						console.debug(`Waiting...`);
+					} else if (selected) {
+						location.href = selected;
+					} else {
+						location.href = "/directory/all/tags/minecraft";
+					};
+					break;
+				};
+				default: {
+					if (location.hash) {
+						locationHash = location.hash.replace("#", "");
+					};
+					//console.debug(locationHash);
+					switch (locationHash) {
+						case "": {
+							break;
+						};
+						case "minecraftGet": {
+							let videoElement = document.querySelector("video");
+							if (videoElement.volume > 0.05) {
+								videoElement.volume = 0.02;
+							};
+							if (!switchAnotherStreamerTask?.constructor) {
+								let timeLeft = 300000 + Math.floor(Math.random() * 600000);
+								document.querySelector(".tw-animated-glitch-logo").innerHTML = `<img src="https://cdn.discordapp.com/emojis/1238166216426913803.webp?size=40&quality=lossless">`
+								switchAnotherStreamerTask = setTimeout(() => {
+									location.href = `https://www.twitch.tv/directory/all/tags/pony`;
+								}, timeLeft);
+								console.warn(`[Custom Twitch Utils] Will switch to the next stream ${timeLeft / 1000} seconds later: ${new Date(Date.now() + timeLeft)}.`);
+							};
+							break;
+						};
+						default: {
+							console.debug(locationHash);
+						};
+					};
+				};
+			};
+		})();
+	};
+	let cyclicId = setInterval(tickingTask, 5000);
 	let removeObserver = new MutationObserver((records) => {
-    tickingTask(1);
+		tickingTask(1);
 		records.forEach((e) => {
 			e.addedNodes.forEach((e0) => {
-        if (e0?.querySelector?.constructor != Function) {
-          return;
-        };
+				if (e0?.querySelector?.constructor != Function) {
+					return;
+				};
 				e0?.querySelectorAll("div.tw-tower p[data-a-target=preview-card-channel-link]")?.forEach((e1) => {
-          let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
-          if (blockedUsers.indexOf(s) > -1) {
-            e1.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-            console.debug(`[Custom Twitch Utils] Target streamer blocked (${s.toString(16)}).`);
-          } else {
-            //console.debug(blockedUsers);
-            console.debug(`[Custom Twitch Utils] Skipped streamer "${c}" (${s.toString(16)}).`);
-          };
-        });
+					let c = e1.innerText.toLowerCase(), s = crc32SumText(c);
+					if (blockedUsers.indexOf(s) > -1) {
+						e1.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+						console.debug(`[Custom Twitch Utils] Target streamer blocked (${s.toString(16)}).`);
+					} else {
+						//console.debug(blockedUsers);
+						console.debug(`[Custom Twitch Utils] Skipped streamer "${c}" (${s.toString(16)}).`);
+					};
+				});
 			});
 		})
 	});
