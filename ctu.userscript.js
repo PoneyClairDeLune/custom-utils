@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.3
+// @version     0.1.6
 // @author      Lumière Élevé
 // @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46
 // ==/UserScript==
@@ -180,7 +180,7 @@ let startObserver = (appMount) => {
 							let chatRestriction = document.querySelector("div.chat-input-tray__open--persistent p")?.innerText?.toLowerCase().normalize("NFD").trim();
 							//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords}".`);
 							//console.debug(`[Custom Twitch Utils] ${chatRestriction}`);
-							if (chatRestriction && chatRestriction.length > 2) {
+							/*if (chatRestriction && chatRestriction.length > 2) {
 								let restrictionRespected = true;
 								for (let i = 0; i < ignoreChatRestrictionKeywords.length; i ++) {
 									if (!restrictionRespected) {
@@ -197,7 +197,7 @@ let startObserver = (appMount) => {
 									// Freedom of speech shall be respected, blanket bans are not acceptable
 									location.href = "/directory/all/tags/pony";
 								};
-							};
+							};*/
 							break;
 						};
 						default: {
