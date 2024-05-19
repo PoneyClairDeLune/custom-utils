@@ -77,7 +77,7 @@ let createHashedArray = (input) => {
 };
 
 const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
-const ignoreChatRestrictionKeywords = "mode,modus,mód,modo,moda,режим,モード,模式,follow,suiv,folg,köve,segu,フォロー,追蹤".normalize("NFD").split(",");
+const ignoreChatRestrictionKeywords = "connec,verbind,csatlakozás,подключение,接続,連線,mode,modus,mód,modo,moda,режим,モード,模式,follow,suiv,folg,köve,segu,фолловеров,フォロー,追蹤".normalize("NFD").split(",");
 
 let locationHash;
 
@@ -177,12 +177,20 @@ let startObserver = (appMount) => {
 								}, timeLeft);
 								console.warn(`[Custom Twitch Utils] Will switch to the next stream ${timeLeft / 1000} seconds later: ${new Date(Date.now() + timeLeft)}.`);
 							};
-							let chatRestriction = document.querySelector("div.chat-input-tray__open--persistent p")?.innerText?.toLowerCase().normalize("NFD");
-							if (chatRestriction) {
+							let chatRestriction = document.querySelector("div.chat-input-tray__open--persistent p")?.innerText?.toLowerCase().normalize("NFD").trim();
+							//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords}".`);
+							//console.debug(`[Custom Twitch Utils] ${chatRestriction}`);
+							if (chatRestriction && chatRestriction.length > 2) {
 								let restrictionRespected = true;
-								for (let i = 0; i < ignoreChatRestrictionKeywords.length && restrictionRespected; i ++) {
+								for (let i = 0; i < ignoreChatRestrictionKeywords.length; i ++) {
+									if (!restrictionRespected) {
+										continue;
+									};
 									if (chatRestriction.indexOf(ignoreChatRestrictionKeywords[i]) > -1) {
 										restrictionRespected = false;
+										//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords[i]}" found in "${chatRestriction}".`);
+									} else {
+										//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords[i]}" not found in "${chatRestriction}".`);
 									};
 								};
 								if (restrictionRespected) {
