@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.8
+// @version     0.1.4
 // @author      Lumière Élevé
 // @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46
 // ==/UserScript==
@@ -11,7 +11,7 @@
 "use strict";
 
 const conf = {
-	"minecraftBot": true,
+	"minecraftBot": false,
 	"pointCollector": true
 };
 
@@ -76,7 +76,7 @@ let createHashedArray = (input) => {
 	return hashedArray;
 };
 
-const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,anotherttvviewer,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,littleshyfim,mizoreai,pinkamena_usuario,tiniencdmxtv".split(","));
+const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0livia_is_lonely,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,aliceydra,anotherttvviewer,ashley_page,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,denyiai,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,retrovergdx,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,zhestykey,littleshyfim,mizoreai,pinkamena_usuario,princessoflovepinkyt,tiniencdmxtv".split(","));
 const ignoreChatRestrictionKeywords = "connec,verbind,csatlakozás,подключение,接続,連線,mode,modus,mód,modo,moda,режим,モード,模式,follow,suiv,folg,köve,segu,фолловеров,フォロー,追蹤".normalize("NFD").split(",");
 
 let locationHash;
@@ -194,7 +194,7 @@ let startObserver = (appMount) => {
 									};
 									if (chatRestriction.indexOf(ignoreChatRestrictionKeywords[i]) > -1) {
 										restrictionRespected = false;
-                    //console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords[i]}" found in "${chatRestriction}".`);
+					//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords[i]}" found in "${chatRestriction}".`);
 									} else {
 										//console.debug(`[Custom Twitch Utils] "${ignoreChatRestrictionKeywords[i]}" not found in "${chatRestriction}".`);
 									};
