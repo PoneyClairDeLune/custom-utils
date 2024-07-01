@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Custom Twitch Utils
-// @namespace   Violentmonkey Scripts
+// @namespace   io.github.poneyclairdelune.ctu
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.4
+// @version     0.1.5
 // @author      Lumière Élevé
 // @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46
 // ==/UserScript==
