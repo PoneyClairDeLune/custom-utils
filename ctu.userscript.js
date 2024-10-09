@@ -76,7 +76,7 @@ let createHashedArray = (input) => {
 	return hashedArray;
 };
 
-const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0livia_is_lonely,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,aliceydra,anotherttvviewer,ashley_page,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,denyiai,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,zhestykey,littleshyfim,mizoreai,pinkamena_usuario,princessoflovepinkyt,tiniencdmxtv".split(","));
+const blockedUsers = createHashedArray("00_aaliyah,00_ava,00_darla,0livia_is_lonely,0__sophia,0_lonely_egirl,4jug,8hvdes,8roe,a_ok,aliceydra,anotherttvviewer,ashley_page,asmr_miyu,axfq,captainshadowthehedgehog8,commanderroot,confidence,coochieman6942021,d0nk7,david3cetqd,denyiai,dn9n,drapsnatt,edward4rijf4,feelssunnyman,framerates,fwoxty,georgew2ms8p,im_socurious,iwill_beback,jackerhikaru,jasonc8l4wl,jasonnvs1x4,jeffl0ab8p,joseph1zj6gg,lady94two,lilfuwafuw,markzynk,mersufy,michaelqmz35a,princessdark666,psh_aa,redterror_,regressz,richard9oipjx,richie_rich_9000,rockn__,rodorigesuuu,sarahaley011,scorpyl2,sukoxi,tarsai,tiggerbandit,vincenine,vlmercy,williamvea2rw,yosharpia,zhestykey,littleshyfim,mizoreai,pinkamena_usuario,princessoflovepinkyt,radiant_sword,tiniencdmxtv".split(","));
 const ignoreChatRestrictionKeywords = "connec,verbind,csatlakozás,подключение,接続,連線,mode,modus,mód,modo,moda,режим,モード,模式,follow,suiv,folg,köve,segu,фолловеров,フォロー,追蹤".normalize("NFD").split(",");
 
 let locationHash;
@@ -114,7 +114,7 @@ let startObserver = (appMount) => {
 	cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime{display:none !important;}`;
 	document.head.append(cssStyle);
 	let tickingTask = async (source = 0) => {
-		let streamerPoints = document.querySelector("button[class*=ScCoreButtonSuccess]");
+		let streamerPoints = document.querySelector("div.community-points-summary > div:nth-child(2) button");
 		if (streamerPoints && conf.pointCollector) {
 			streamerPoints.click();
 			console.debug("[Custom Twitch Utils] Points collected!");
