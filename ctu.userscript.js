@@ -3,7 +3,7 @@
 // @namespace   io.github.poneyclairdelune.ctu
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.8
+// @version     0.1.9
 // @author      Lumière Élevé
 // @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46; 23/11/2024, 14:15:53
 // ==/UserScript==
