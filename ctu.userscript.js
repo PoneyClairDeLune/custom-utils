@@ -3,9 +3,9 @@
 // @namespace   io.github.poneyclairdelune.ctu
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.6
+// @version     0.1.7
 // @author      Lumière Élevé
-// @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46
+// @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46; 23/11/2024, 14:15:53
 // ==/UserScript==
 
 "use strict";
@@ -111,7 +111,7 @@ let switchAnotherStreamerTask;
 let startObserver = (appMount) => {
 	console.debug("[Custom Twitch Utils] Observer started.");
 	let cssStyle = document.createElement("style");
-	cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime{display:none !important;}`;
+	cssStyle.innerHTML = `img[alt*="r/place 2023"],div.side-nav-section[aria-label*="recomm"],div.top-nav__prime,div[data-target=channel-header-right] button[data-a-target$=button] div[data-a-target$=button-label-text]:nth-child(n+2){display:none !important;}`;
 	document.head.append(cssStyle);
 	let tickingTask = async (source = 0) => {
 		let streamerPoints = document.querySelector("div.community-points-summary > div:nth-child(2) button");
