@@ -11,7 +11,12 @@ let pattingJob = () => {
 			// Try to redeem
 			let redeemButton = $("div#channel-points-reward-center-body button");
 			if (redeemButton && !redeemButton?.disabled) {
+				// Redeem with enough points
 				redeemButton.click();
+			} else {
+				// Close the redeem for now
+				let redeemHeader = $("div.rewards-popover-header > div");
+				redeemHeader.children[redeemHeader.children.length - 1]?.querySelector("button")?.click();
 			};
 		};
 	} else {
