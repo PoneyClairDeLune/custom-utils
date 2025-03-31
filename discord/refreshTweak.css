@@ -1,7 +1,7 @@
 /**
  * @name        RefreshTweak
  * @author      Lumière Élevé
- * @version     1.0.0
+ * @version     1.0.1
  * @description A stylesheet to force Discord's new UI to make a little bit more sense.
  * @source      https://github.com/PoneyClairDeLune/custom-utils/blob/main/discord/refreshTweak.CVv7.css
  */
@@ -20,6 +20,7 @@
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='channelBottomBarArea_']>div {
 	margin: calc(var(--space-xs) * 2) 0 var(--space-xs);
+	min-height: calc(40px + 2 * var(--space-xs));
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
 	position: absolute;
