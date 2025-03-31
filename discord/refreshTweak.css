@@ -3,7 +3,7 @@
  * @author      Lumière Élevé
  * @version     1.0.2
  * @description A stylesheet to force Discord's new UI to make a little bit more sense.
- * @source      https://github.com/PoneyClairDeLune/custom-utils/blob/main/discord/refreshTweak.CVv7.css
+ * @source      https://github.com/PoneyClairDeLune/custom-utils/blob/main/discord/refreshTweak.css
  */
 .visual-refresh div[class^='sidebar_']>section[class^='panels_'] {
 	width: calc(100% - 48px - var(--space-xs) * 5);
