@@ -15,3 +15,9 @@ Made by Lumière Élevé.
 .visual-refresh div[class^='codeContainer_']>code {
 	word-break: break-all;
 }
+.visual-refresh main[class^='chatContent_']>form>div[class^='channelBottomBarArea_'] {
+	transform: translateY(16px);
+}
+.visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
+	transform: translateY(calc(-56px - var(--space-xs)));
+}
