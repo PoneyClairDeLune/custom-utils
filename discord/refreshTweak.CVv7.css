@@ -17,5 +17,8 @@ Patched to integrate with ClearVision v7. Made by Lumière Élevé.
 	top: calc(24px - var(--space-xs));
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
-	transform: translateY(calc(-48px - var(--space-xs)));
+	transform: translateY(calc(-100% - 32px - var(--space-xs)));
+}
+.visual-refresh main[class^='chatContent_']>form:has(div[class^='channelTextArea_']>div[class^='stackedBars_'])>div[class^='typing_'] {
+	transform: translateY(calc(-300% - 24px - var(--space-xs)));
 }
