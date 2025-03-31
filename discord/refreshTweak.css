@@ -21,5 +21,6 @@ Made by Lumière Élevé.
 	top: calc(24px - var(--space-xs));
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
-	transform: translateY(calc(-48px - var(--space-xs)));
+	position: absolute;
+	top: -8px;
 }
