@@ -3,8 +3,8 @@ RefreshTweak, a stylesheet to force Discord's new UI to make a little bit more s
 Made by Lumière Élevé.
 */
 .visual-refresh div[class^='sidebar_']>section[class^='panels_'] {
-	width: calc(312px - var(--space-xs) * 2);
-	left: calc(65px + var(--space-xs));
+	width: calc(318px - var(--space-xs) * 3);
+	left: calc(57px + var(--space-xs) * 2);
 }
 .visual-refresh div[class^='sidebar_']>nav[class^='wrapper_'] {
 	margin-bottom: 0;
