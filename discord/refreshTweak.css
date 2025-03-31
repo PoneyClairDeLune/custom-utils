@@ -1,0 +1,17 @@
+/*
+RefreshTweak, a stylesheet to force Discord's new UI to make a little bit more sense.
+Made by Lumière Élevé.
+*/
+.visual-refresh div[class^='sidebar_']>section[class^='panels_'] {
+	width: calc(312px - var(--space-xs) * 2);
+	left: calc(65px + var(--space-xs));
+}
+.visual-refresh div[class^='sidebar_']>nav[class^='wrapper_'] {
+	margin-bottom: 0;
+}
+.visual-refresh div[class^='sidebarList_']>nav[class^='container_'] {
+	padding-bottom: calc(var(--custom-app-panels-height,0) + 12px);
+}
+.visual-refresh div[class^='codeContainer_']>code {
+	word-break: break-all;
+}
