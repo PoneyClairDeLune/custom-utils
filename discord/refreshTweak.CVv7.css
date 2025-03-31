@@ -1,7 +1,10 @@
-/*
-RefreshTweak, a stylesheet to force Discord's new UI to make a little bit more sense.
-Patched to integrate with ClearVision v7. Made by Lumière Élevé.
-*/
+/**
+ * @name        RefreshTweak + ClearVision
+ * @author      Lumière Élevé
+ * @version     1.0.0
+ * @description A stylesheet to force Discord's new UI to make a little bit more sense, patched for compatibility with ClearVision.
+ * @source      https://github.com/PoneyClairDeLune/custom-utils/blob/main/discord/refreshTweak.CVv7.css
+ */
 .visual-refresh div[class^='sidebar_']>section[class^='panels_'] {
 	width: calc(100% - 48px - var(--space-xs) * 3);
 	left: calc(40px + var(--space-xs) * 4);
