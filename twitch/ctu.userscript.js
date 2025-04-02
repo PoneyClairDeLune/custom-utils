@@ -3,9 +3,9 @@
 // @namespace   io.github.poneyclairdelune.ctu
 // @match       https://www.twitch.tv/*
 // @grant       none
-// @version     0.1.16
+// @version     0.1.17
 // @author      Lumière Élevé
-// @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46; 23/11/2024, 14:15:53; 26/01/2025, 20:07:40; 01/02/2025, 14:16:31
+// @description 19/04/2024, 17:33:32; 25/04/2024, 16:05:46; 23/11/2024, 14:15:53; 26/01/2025, 20:07:40; 01/02/2025, 14:16:31; 02/04/2025, 20:22:18
 // ==/UserScript==
 
 "use strict";
@@ -111,7 +111,7 @@ let switchAnotherStreamerTask;
 let startObserver = (appMount) => {
 	console.debug("[Custom Twitch Utils] Observer started.");
 	let cssStyle = document.createElement("style");
-	cssStyle.innerHTML = `/*Eyesore filter*/img[alt*="r/place 2023"],nav.skip-to-target div:has(.side-info-container)>div:nth-child(1)>div,div.top-nav__prime,div[data-target=channel-header-right] div[data-a-target$=-label-text]:nth-child(n+2),div.top-nav__menu>div:nth-child(3) div[data-a-target$=-label-text]{display:none!important;}div[class*='chat-line__'] span[aria-hidden=true]{display:none}/*Exemptions*/span.live-time>span[aria-hidden=true],div:has(.tw-channel-status-indicator) span[aria-hidden=true]{display:inline-block;}nav.skip-to-target div:has(.side-info-container)>div:nth-child(1)>div:nth-last-child(3){display:block!important}/*On-demand mod icons*/div[class*=" chat-line__no"]>div:nth-last-child(1){display:inline-flex!important;flex-direction:column;width:100%}div[class*=" chat-line__no"]>div>div:nth-last-child(2n){display:none!important;order:3;text-align:right;position:relative;top:-1.8rem;max-height:0}div[class*=" chat-line__no"]:hover>div>div:nth-last-child(4){display:inline!important}div[class*=" chat-line__no"] button.mod-icon{background:#0007}span.chat-line__timestamp{text-align:right;height:0}div.chat-line__username-container{max-width:calc(100% - 4rem)}div.chat-line__username-container>span:nth-child(1){float:right;padding-right:0rem}div[class*=" chat-line__no"]:hover div.chat-line__username-container>span:nth-child(1){padding-right:1.6rem}`;
+	cssStyle.innerHTML = `/*Eyesore filter*/img[alt*="r/place 2023"],nav.skip-to-target div:has(nfo-container)>div:nth-child(1)>div,div.top-nav__prime,div[data-target=channel-header-right] div[data-a-target$=-label-text]:nth-child(n+2),div.top-nav__menu>div:nth-child(3) div[data-a-target$=-label-text]{display:none!important;}div[class*='chat-line__'] span[aria-hidden=true]{display:none}/*Exemptions*/span.live-time>span[aria-hidden=true],div:has(.tw-channel-status-indicator) span[aria-hidden=true]{display:inline-block;}nav.skip-to-target div:has(.side-info-container)>div:nth-child(1)>div:nth-last-child(n+2){display:block!important}/*On-demand mod icons*/div[class*=" chat-line__no"]>div:nth-last-child(1){display:inline-flex!important;flex-direction:column;width:100%}div[class*=" chat-line__no"]>div>div:nth-last-child(2n){display:none!important;order:3;text-align:right;position:relative;top:-1.8rem;max-height:0}div[class*=" chat-line__no"]:hover>div>div:nth-last-child(4){display:inline!important}div[class*=" chat-line__no"] button.mod-icon{background:#0007}span.chat-line__timestamp{text-align:right;height:0}div.chat-line__username-container{max-width:calc(100% - 4rem)}div.chat-line__username-container>span:nth-child(1){float:right;padding-right:0rem}div[class*=" chat-line__no"]:hover div.chat-line__username-container>span:nth-child(1){padding-right:1.6rem}`;
 	document.head.append(cssStyle);
 	let tickingTask = async (source = 0) => {
 		let streamerPoints = document.querySelector("div.community-points-summary > div:nth-child(2) button");
