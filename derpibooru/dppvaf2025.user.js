@@ -4,7 +4,7 @@
 // @match       https://derpibooru.org/profiles/*
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/dppvaf2025.user.js
 // @grant       none
-// @version     0.3.3
+// @version     0.3.4
 // @author      -
 // @description Personal score viewer for Derpibooru April Fool's 2025
 // @run-at      document-idle
@@ -105,7 +105,7 @@ const renderAchTree = () => {
     renderList.push(e);
     renderedAchievements ++;
   };
-  renderTitle.append(`(${renderedAchievements}/116)`);
+  renderTitle.append(`(${renderedAchievements}/115+3)`);
   return createDiv(["block"], [renderTitle, createDiv(["block__content"], [createDiv(["block"], renderList)])]);
 };
 const renderStatTree = () => {
