@@ -2,6 +2,7 @@
 // @name        DPPVAF2025
 // @namespace   io.github.poneyclairdelune.derpi2025Viewer
 // @match       https://derpibooru.org/profiles/*
+// @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/dppvaf2025.userscript.js
 // @grant       none
 // @version     0.3.2
 // @author      -
