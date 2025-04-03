@@ -2,9 +2,9 @@
 // @name        DPPVAF2025
 // @namespace   io.github.poneyclairdelune.derpi2025Viewer
 // @match       https://derpibooru.org/profiles/*
-// @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/dppvaf2025.userscript.js
+// @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/dppvaf2025.user.js
 // @grant       none
-// @version     0.3.2
+// @version     0.3.3
 // @author      -
 // @description Personal score viewer for Derpibooru April Fool's 2025
 // @run-at      document-idle
