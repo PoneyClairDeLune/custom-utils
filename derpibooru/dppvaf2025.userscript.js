@@ -3,7 +3,7 @@
 // @namespace   io.github.poneyclairdelune.derpi2025Viewer
 // @match       https://derpibooru.org/profiles/*
 // @grant       none
-// @version     0.3
+// @version     0.3.1
 // @author      -
 // @description Personal score viewer for Derpibooru April Fool's 2025
 // @run-at      document-idle
@@ -77,7 +77,7 @@ const createDiv = (classList, content) => {
 const renderAchTree = () => {
   let renderTitle = createDiv(["block__header"]);
   renderTitle.innerHTML = `<span class="block__header__title">April Fool's 2025 Achievements</span>`;
-  let renderList = [], achList = localStorage.getItem("achievements").split(",").map((e) => {return parseInt(e)}).sort((a, b) => {return a - b;});
+  let renderList = [], achList = localStorage.getItem("achievements").split(",").map((e) => {return parseInt(e)}).sort((a, b) => {return a - b;}).sort((a, b) => {return (achievementDetails[b]?.p ?? 0) - (achievementDetails[a]?.p ?? 0)});
   for (let achId of achList) {
     let achObj = achievementDetails[achId];
     if (!achObj) {
