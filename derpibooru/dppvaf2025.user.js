@@ -4,7 +4,7 @@
 // @match       https://derpibooru.org/profiles/*
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/dppvaf2025.user.js
 // @grant       none
-// @version     0.3.4
+// @version     0.3.5
 // @author      -
 // @description Personal score viewer for Derpibooru April Fool's 2025
 // @run-at      document-idle
@@ -71,6 +71,12 @@ const statsDetails = {
   "ach_comments": "Comments",
   "ach_posts": "Forum posts"
 };
+const allAchList = [];
+for (let i = 0; i < achievementDetails.length; i ++) {
+  allAchList.push(i);
+};
+allAchList.sort((a, b) => {return (achievementDetails[b]?.p ?? 0) - (achievementDetails[a]?.p ?? 0)});
+
 
 const createDiv = (classList, content) => {
   let el = document.createElement("div");
@@ -90,20 +96,27 @@ const renderAchTree = () => {
   let renderTitle = createDiv(["block__header"]);
   renderTitle.innerHTML = `<span class="block__header__title">April Fool's 2025 Achievements Earned</span>`;
   let renderList = [], renderedAchievements = 0;
-  let achList = localStorage.getItem("achievements").split(",").map((e) => {return parseInt(e)}).sort((a, b) => {return a - b;}).sort((a, b) => {return (achievementDetails[b]?.p ?? 0) - (achievementDetails[a]?.p ?? 0)});
-  for (let achId of achList) {
+  let achList = localStorage.getItem("achievements").split(",").map((e) => {return parseInt(e)}).sort((a, b) => {return a - b;});
+  for (let achId of allAchList) {
     let achObj = achievementDetails[achId];
-    if (!achObj) {
+    let nonexistent = achList.indexOf(achId) === -1;
+    if (!achObj || nonexistent && achObj.i) {
       continue;
     };
     let e0 = document.createElement("b");
     e0.append(achObj.n);
     let e = createDiv(["block__content", "alternating-color"], [e0, ` (${achObj.p} pt): ${achObj.d}`]);
+    if (nonexistent) {
+      e.classList.add("d2v-ach-absent");
+    };
     if (achObj.i) {
       e.classList.add("d2v-ach-honeypot");
     };
+    e.title = `Achievement ID: ${achId}`;
     renderList.push(e);
-    renderedAchievements ++;
+    if (!nonexistent) {
+      renderedAchievements ++;
+    };
   };
   renderTitle.append(`(${renderedAchievements}/115+3)`);
   return createDiv(["block"], [renderTitle, createDiv(["block__content"], [createDiv(["block"], renderList)])]);
@@ -132,6 +145,6 @@ if (avatarMounter.querySelector("a")) {
   achListMounter.appendChild(renderStatTree());
   achListMounter.appendChild(renderAchTree());
   let styles = document.createElement("style");
-  styles.innerHTML = `.d2v-ach-honeypot {outline: 1px solid #f00}.d2v-rank {padding: 4px;text-align: center;color: #ddd;margin: 2px;}.d2v-rank-f {background: #317a7a;}.d2v-rank-e {background: #1a6b28;}.d2v-rank-d {background: #1d3163;}.d2v-rank-c {background: #431d63;}.d2v-rank-b {background: #631d41;}.d2v-rank-a {background: #967b02;}.d2v-rank-s {background: #c24b07;}.d2v-rank-idk {background: linear-gradient(30deg, #ad0802, #dd3502, #f08a36);}.d2v-rank-sweat {background: linear-gradient(to right, #940101, #832c04, #8f8f00, #008100, #094088, #850b85);}.d2v-rank-afk {background: linear-gradient(to right, #850b85, #6803c7, #2806bd);}@keyframes gradient {0% {background-position: 0% 50%;}50% {background-position: 100% 50%;}100% {background-position: 0% 50%;}}.d2v-rank-max{background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);background-size: 400% 400%;animation: gradient 15s ease infinite;font-weight: bold;}.d2v-rank-cheater{background: #801c26;}`;
+  styles.innerHTML = `.d2v-ach-absent{opacity:0.5}.d2v-ach-honeypot{outline:1px solid #f00}.d2v-rank{padding:4px;text-align:center;color:#ddd;margin:2px;}.d2v-rank-f {background: #317a7a;}.d2v-rank-e {background: #1a6b28;}.d2v-rank-d {background: #1d3163;}.d2v-rank-c {background: #431d63;}.d2v-rank-b {background: #631d41;}.d2v-rank-a {background: #967b02;}.d2v-rank-s {background: #c24b07;}.d2v-rank-idk {background: linear-gradient(30deg, #ad0802, #dd3502, #f08a36);}.d2v-rank-sweat {background: linear-gradient(to right, #940101, #832c04, #8f8f00, #008100, #094088, #850b85);}.d2v-rank-afk {background: linear-gradient(to right, #850b85, #6803c7, #2806bd);}@keyframes gradient {0% {background-position: 0% 50%;}50% {background-position: 100% 50%;}100% {background-position: 0% 50%;}}.d2v-rank-max{background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);background-size: 400% 400%;animation: gradient 15s ease infinite;font-weight: bold;}.d2v-rank-cheater{background: #801c26;}`;
   document.head.appendChild(styles);
 };
