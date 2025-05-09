@@ -25,4 +25,4 @@ let pattingJob = () => {
 	};
 };
 
-self.pattingThread = setInterval(pattingJob, 1500);
+self.pattingThread = setInterval(pattingJob, 4000);
