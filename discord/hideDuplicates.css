@@ -1,14 +1,16 @@
 /**
- * @name        Hide Duplicates
+ * @name        Hide Trash & Duplicates
  * @author      Lumière Élevé
- * @version     0.0.1
+ * @version     0.0.2
  * @description A stylesheet to hide some buttons. Literally.
  * @source      https://github.com/PoneyClairDeLune/custom-utils/blob/main/discord/hideDuplicates.css
  */
-div[class^='scrollableContainer_']>div>div[class^='buttons_']>div.expression-picker-chat-input-button {
+div[class^='scrollableContainer_']>div>div[class^='buttons_']>div.expression-picker-chat-input-button,
+div[class^='scrollableContainer_']>div>div[class^='buttons_']>button,
+div[class^='upsellContainer_'] {
 	display: none;
 }
 div[class^='scrollableContainer_']>div>div[class^='buttons_']>div.vc-chatbar-button,
 div[class^='scrollableContainer_']>div>div[class^='buttons_']>div.expression-picker-chat-input-button:nth-last-child(-n + 2) {
-  display: flex;
+	display: flex;
 }
