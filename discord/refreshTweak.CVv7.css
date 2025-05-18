@@ -15,7 +15,7 @@
 .visual-refresh div[class^='codeContainer_']>code {
 	word-break: break-all;
 }
-.visual-refresh main[class^='chatContent_']>form>div[class^='channelBottomBarArea_']>div {
+.visual-refresh main[class^='chatContent_']>form>div>div[class^='channelBottomBarArea_']>div {
 	margin: calc(var(--space-xs) * 2) 0 var(--space-xs);
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
