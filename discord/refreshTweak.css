@@ -24,7 +24,7 @@
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
 	position: absolute;
-	top: -8px;
+	top: -28px;
 }
 .visual-refresh form>div[class^='channelBottomBarArea_']>div>div[class^='scrollableContainer_'] {
 	padding-top: 3px;
