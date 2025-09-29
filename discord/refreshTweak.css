@@ -24,6 +24,9 @@
 }
 .visual-refresh main[class^='chatContent_']>form>div[class^='typing_'] {
 	position: absolute;
+	top: -8px;
+}
+.visual-refresh div[class^='base_']>div[class^='content_']:has(nav[class^='privateChannels_']) main[class^='chatContent_']>form>div[class^='typing_'] {
 	top: -28px;
 }
 .visual-refresh form>div[class^='channelBottomBarArea_']>div>div[class^='scrollableContainer_'] {
