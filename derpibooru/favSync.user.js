@@ -5,7 +5,7 @@
 // @sandbox     raw
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/favSync.user.js
 // @grant       none
-// @version     0.0.2
+// @version     0.0.3
 // @author      -
 // @description Sync favourites from one account to another when searching for the prefix `!my:faves AND faved_by:<user> AND `.
 // @run-at      document-idle
@@ -39,6 +39,7 @@ let runPass = async function (elementIterator) {
 				//console.debug(`Image "${imageId}": started.`);
 				favButton.click();
 				await sleepWait(2000);
+				scrollTo(0, imageEntry.offsetTop);
 				console.debug(`Image "${imageId}": finished.`);
 			})());
 		} else {
