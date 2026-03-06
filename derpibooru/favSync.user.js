@@ -36,10 +36,10 @@ let runPass = async function (elementIterator) {
 			//console.debug(`Image "${imageId}": planned.`);
 			waitAllSettle.push((async () => {
 				await sleepWait(stepWaitMs);
-				console.debug(`Image "${imageId}": started.`);
+				//console.debug(`Image "${imageId}": started.`);
 				favButton.click();
 				await sleepWait(3000);
-				//console.debug(`Image "${imageId}": finished.`);
+				console.debug(`Image "${imageId}": finished.`);
 			})());
 		} else {
 			console.debug(`Image "${imageId}": skipped.`);
