@@ -5,7 +5,7 @@
 // @sandbox     raw
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/favSync.user.js
 // @grant       none
-// @version     0.0.1
+// @version     0.0.2
 // @author      -
 // @description Sync favourites from one account to another when searching for the prefix `!my:faves AND faved_by:<user> AND `.
 // @run-at      document-idle
@@ -27,7 +27,7 @@ let sleepWait = async function (ms) {
 	});
 }
 let runPass = async function (elementIterator) {
-	const stepIntervalMs = 500;
+	const stepIntervalMs = 250;
 	let waitAllSettle = [], stepNumber = 0, stepWaitMs = 0;
 	for (let imageEntry of elementIterator) {
 		let imageId = imageEntry.getAttribute("data-image-id"),
@@ -38,7 +38,7 @@ let runPass = async function (elementIterator) {
 				await sleepWait(stepWaitMs);
 				//console.debug(`Image "${imageId}": started.`);
 				favButton.click();
-				await sleepWait(3000);
+				await sleepWait(2000);
 				console.debug(`Image "${imageId}": finished.`);
 			})());
 		} else {
@@ -55,10 +55,11 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 		console.debug("Syncing started.");
 		console.debug(`Pass #1: Initiation.`);
 		await runPass(document.querySelectorAll("div.media-box"));
+		await sleepWait(2000);
 		console.debug(`Pass #1: Assurance.`);
 		await runPass(document.querySelectorAll("div.media-box"));
 		console.debug(`Task finished.`);
-		await sleepWait(3000);
+		await sleepWait(4000);
 		location.reload();
 	})();
 };
