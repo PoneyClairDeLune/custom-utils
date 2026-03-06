@@ -59,6 +59,7 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 		console.debug(`Pass #2: Assurance.`);
 		await runPass(document.querySelectorAll("div.media-box"));
 		console.debug(`Task finished.`);
+		scrollTo(0, 0);
 		await sleepWait(4000);
 		location.reload();
 	})();
