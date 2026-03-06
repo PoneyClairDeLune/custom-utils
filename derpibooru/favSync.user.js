@@ -37,13 +37,17 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 			waitAllSettle.push((async () => {
 				await sleepWait(stepWaitMs);
 				console.debug(`Image "${imageId}": started.`);
-				await fetch(`https://derpibooru.org/images/${imageId}/fave`, {
+				favButton.click();
+				await sleepWait(5000);
+				console.debug(`Image "${imageId}": finished.`);
+				/*let req = await fetch(`https://derpibooru.org/images/${imageId}/fave`, {
 					"method": "POST",
 					"credentials": "include",
 					"referrer": "about:client",
 					"body": `{"_method":"POST"}`
 				});
 				console.debug(`Image "${imageId}": finished.`);
+				console.debug(req.status);*/
 			})());
 		} else {
 			console.debug(`Image "${imageId}": skipped.`);
