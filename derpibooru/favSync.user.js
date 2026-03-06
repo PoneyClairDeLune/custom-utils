@@ -14,6 +14,8 @@
 
 "use strict";
 
+//console.debug("Synchronizer started.");
+
 let sleepWait = async function (ms) {
 	// From Twinkle Sprinkle
 	return new Promise((proceed) => {
@@ -24,12 +26,10 @@ let sleepWait = async function (ms) {
 		};
 	});
 }
-
-if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\+faved_by:[A-Za-z_-]+\b\+AND\+/) > -1) {
-	console.debug("Syncing started.");
+let runPass = async function (elementIterator) {
 	const stepIntervalMs = 500;
 	let waitAllSettle = [], stepNumber = 0, stepWaitMs = 0;
-	for (let imageEntry of document.querySelectorAll("div.media-box")) {
+	for (let imageEntry of elementIterator) {
 		let imageId = imageEntry.getAttribute("data-image-id"),
 		favButton = imageEntry.querySelector("a.interaction--fave");
 		if (!favButton.classList.contains("active")) {
@@ -38,16 +38,8 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 				await sleepWait(stepWaitMs);
 				console.debug(`Image "${imageId}": started.`);
 				favButton.click();
-				await sleepWait(5000);
-				console.debug(`Image "${imageId}": finished.`);
-				/*let req = await fetch(`https://derpibooru.org/images/${imageId}/fave`, {
-					"method": "POST",
-					"credentials": "include",
-					"referrer": "about:client",
-					"body": `{"_method":"POST"}`
-				});
-				console.debug(`Image "${imageId}": finished.`);
-				console.debug(req.status);*/
+				await sleepWait(3000);
+				//console.debug(`Image "${imageId}": finished.`);
 			})());
 		} else {
 			console.debug(`Image "${imageId}": skipped.`);
@@ -55,9 +47,18 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 		stepNumber ++;
 		stepWaitMs += stepIntervalMs;
 	};
-	Promise.allSettled(waitAllSettle).then(async () => {
+	await Promise.allSettled(waitAllSettle);
+};
+
+if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\+faved_by:[A-Za-z_-]+\b\+AND\+/) > -1) {
+	(async () => {
+		console.debug("Syncing started.");
+		console.debug(`Pass #1: Initiation.`);
+		await runPass(document.querySelectorAll("div.media-box"));
+		console.debug(`Pass #1: Assurance.`);
+		await runPass(document.querySelectorAll("div.media-box"));
 		console.debug(`Task finished.`);
-		await sleepWait(5000);
+		await sleepWait(3000);
 		location.reload();
-	});
+	})();
 };
