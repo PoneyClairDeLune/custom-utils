@@ -55,8 +55,7 @@ if (decodeURIComponent(location.search).substring(1).search(/^q=\!my:faves\+AND\
 		console.debug("Syncing started.");
 		console.debug(`Pass #1: Initiation.`);
 		await runPass(document.querySelectorAll("div.media-box"));
-		await sleepWait(2000);
-		console.debug(`Pass #1: Assurance.`);
+		console.debug(`Pass #2: Assurance.`);
 		await runPass(document.querySelectorAll("div.media-box"));
 		console.debug(`Task finished.`);
 		await sleepWait(4000);
