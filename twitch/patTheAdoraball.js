@@ -27,7 +27,7 @@ let pattingJob = function () {
     } else {
         console.debug(`Idle phase.`);
         // Try to open the rewards panel
-        $("button:has(.channel-points-icon)")?.click();
+        $("button:has(div[data-test-selector='bits-balance-string'])")?.click();
         return 0;
     };
 };
