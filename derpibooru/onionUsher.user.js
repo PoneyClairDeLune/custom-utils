@@ -2,6 +2,7 @@
 // @name        Onion Usher
 // @namespace   io.github.poneyclairdelune.onionUsher
 // @match       https://derpibooru.org/**
+// @match       https://trixiebooru.org/**
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/onionUsher.js
 // @grant       none
 // @version     0.0.1

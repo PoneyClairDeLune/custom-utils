@@ -2,10 +2,12 @@
 // @name        Sync Favourites
 // @namespace   io.github.poneyclairdelune.favSync
 // @match       https://derpibooru.org/search*
+// @match       https://trixiebooru.org/search*
+// @match       https://derpibooruqmsxtgwn3u4opg3jdtw7dhfggxsycoof5wrejt6palppad.onion/search*
 // @sandbox     raw
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/favSync.user.js
 // @grant       none
-// @version     0.0.4
+// @version     0.0.5
 // @author      -
 // @description Sync favourites from one account to another when searching for the prefix `!my:faves AND faved_by:<user> AND `.
 // @run-at      document-idle

@@ -2,10 +2,12 @@
 // @name        Quick Artist Hide
 // @namespace   io.github.poneyclairdelune.quickDerpiArtistHide
 // @match       https://derpibooru.org/*
+// @match       https://trixiebooru.org/*
+// @match       https://derpibooruqmsxtgwn3u4opg3jdtw7dhfggxsycoof5wrejt6palppad.onion/*
 // @sandbox     raw
 // @homepage    https://github.com/PoneyClairDeLune/custom-utils/blob/main/derpibooru/quickArtistHide.user.js
 // @grant       none
-// @version     0.0.1
+// @version     0.0.2
 // @author      -
 // @description Adds a button to allow you hide the artist of a certain image.
 // @run-at      document-idle
